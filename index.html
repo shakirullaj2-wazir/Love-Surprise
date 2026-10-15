@@ -1,1 +1,656 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Little Surprise 💌</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: linear-gradient(135deg, #ffd6e7, #dfd2ff, #fff0d6);
+  color: #54354b;
+}
+
+.card {
+  background: rgba(255,255,255,0.96);
+  width: 100%;
+  max-width: 480px;
+  padding: 28px 22px;
+  border-radius: 25px;
+  box-shadow: 0 10px 35px #9c5c8825;
+  animation: appear .4s ease;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h1, h2 { color: #e34d91; }
+p { line-height: 1.6; }
+
+.emoji {
+  font-size: 65px;
+  margin: 18px 0;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 7px 0 13px;
+  border: 1px solid #edc4da;
+  border-radius: 12px;
+  font-size: 15px;
+  background: #fffafd;
+}
+
+label {
+  display: block;
+  text-align: left;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+button {
+  border: none;
+  border-radius: 25px;
+  padding: 12px 19px;
+  margin: 6px 3px;
+  background: #f05a9b;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+button:hover { background: #d94184; }
+.secondary { background: #a58adf; }
+.choice { min-width: 100px; }
+.hidden { display: none; }
+
+.progress {
+  color: #a37c98;
+  font-size: 13px;
+  margin-bottom: 15px;
+}
+
+.small {
+  font-size: 12px;
+  color: #92788a;
+}
+
+.heart {
+  position: fixed;
+  bottom: -40px;
+  font-size: 22px;
+  pointer-events: none;
+  animation: floatUp 6s linear forwards;
+  z-index: -1;
+}
+
+@keyframes floatUp {
+  to { transform: translateY(-110vh) rotate(25deg); opacity: 0; }
+}
+
+/* Smooth page transitions */
+section {
+  animation: pageEnter 0.65s ease both;
+}
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Glowing buttons */
+button {
+  transition: transform 0.25s ease,
+              box-shadow 0.25s ease,
+              background 0.25s ease;
+  box-shadow: 0 5px 12px #f05a9b30;
+}
+
+button:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 8px 20px #f05a9b60;
+}
+
+button:active {
+  transform: scale(0.94);
+}
+
+/* Cute bouncing emojis */
+.emoji {
+  animation: cuteBounce 2s ease-in-out infinite;
+  display: block;
+}
+
+@keyframes cuteBounce {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-9px) rotate(5deg); }
+}
+
+/* Floating hearts */
+.heart {
+  animation: floatUp 6s linear forwards;
+  text-shadow: 0 0 10px #ff9bc9;
+}
+
+/* Beautiful glowing title */
+h1, h2 {
+  text-shadow: 0 2px 12px #ff8fbd35;
+}
+
+/* Soft focus effect on form fields */
+input, select, textarea {
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #f05a9b;
+  box-shadow: 0 0 0 4px #f05a9b20;
+}
+
+/* Small screens */
+@media (max-width: 400px) {
+  .card {
+    padding: 22px 15px;
+  }
+
+  button {
+    padding: 11px 14px;
+  }
+}
+
+.sparkle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  font-size: 22px;
+  animation: sparkleFly 900ms ease-out forwards;
+}
+
+@keyframes sparkleFly {
+  from {
+    opacity: 1;
+    transform: translate(0, 0) scale(0.4);
+  }
+  to {
+    opacity: 0;
+    transform: translate(var(--move-x), var(--move-y))
+      scale(1.5) rotate(180deg);
+  }
+}
+
+/* Beautiful writing for the first two pages */
+#page1 h1,
+#page2 h1,
+#page1 h2,
+#page2 h2 {
+  font-family: "Georgia", cursive;
+  font-size: 32px;
+  font-weight: bold;
+  line-height: 1.4;
+  background: linear-gradient(90deg, #ff3e93, #a855f7, #ff75a0);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 3px 12px #ff7eb533;
+}
+
+/* Attractive paragraph writing */
+#page1 p,
+#page2 p {
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: 17px;
+  line-height: 1.9;
+  color: #75405f;
+  letter-spacing: 0.4px;
+}
+
+/* Cute emphasis for important words */
+#page1 strong,
+#page2 strong {
+  color: #e84393;
+  font-weight: 900;
+}
+
+/* Gentle entrance animation */
+#page1 h1,
+#page1 h2,
+#page2 h1,
+#page2 h2 {
+  animation: lovelyText 1.2s ease both;
+}
+
+@keyframes lovelyText {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<button id="musicButton" style="position:fixed;top:15px;right:15px;z-index:10000;">
+  🎵 Play Music
+</button>
+
+<div class="card">
+  <div class="progress" id="progress">A little surprise for you 💌</div>
+
+  <!-- PAGE 1: GREETING -->
+  <section id="page1">
+   
+<div style="margin: 18px auto;">
+  <img
+    src="cat.jpg.png"
+    alt="Shakir's photo"
+    style="
+      width: 165px;
+      height: 165px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 5px solid #131212;
+      box-shadow: 0 8px 25px #06db4640;
+    "
+  >
+</div>
+
+    <h1>Assalamu Alaikum! 🌸</h1>
+    <p>Someone has prepared a little surprise for you. Are you ready?</p>
+    <button onclick="go(2)">Continue 💌</button>
+  </section>
+
+<!-- SPECIAL PHOTO SECTION -->
+<section id="pagePhoto" class="hidden">
+  <div class="emoji">💖🌸💖</div>
+
+  <h2>A Little Memory Corner 📸</h2>
+
+  <p>Every beautiful moment deserves a place in our hearts. 💕</p>
+
+  <div style="
+    background: linear-gradient(135deg, #ffc5df, #d9c8ff);
+    padding: 12px;
+    border-radius: 22px;
+    box-shadow: 0 8px 25px #e34d9140;
+  ">
+    <img
+      id="memoryPhoto"
+      src="https://placehold.co/400x300/ffe0ef/e34d91?text=Your+Photo+Here"
+      alt="Special memory"
+      style="width:100%; border-radius:16px; display:block;"
+    >
+  </div>
+
+  <p class="small">A little corner for a beautiful memory. 🌷</p>
+
+  <button onclick="go(3)">Continue 💌</button>
+  <button class="secondary" onclick="go(1)">Back</button>
+</section>
+
+  <!-- PAGE 2: INTRODUCTION -->
+  <section id="page2" class="hidden">
+    
+<div style="margin: 18px auto; text-align: center;">
+  <img
+    src="shakir.jpg.jpg"
+    alt="My photo"
+    style="width: 180px; height: 180px; object-fit: cover; border-radius: 50%; border: 5px solid #f5a5cb; box-shadow: 0 8px 25px #e34d9140;"
+  >
+</div>
+
+    <div class="emoji">🌹</div>
+    <h2>Assalamu Alaikum, Beautiful! 💖</h2>
+    <p>
+      I'm Shakir, a Software Engineering student who loves creating
+      amazing things with technology. 💻✨
+    </p>
+    <p>
+      And you? 🌹 The beautiful first visitor making my little
+      creation special! 💌
+    </p>
+    <button onclick="go(3)">Let's Begin 🌷</button>
+  </section>
+
+  <!-- PAGE 3: PERSONAL QUESTIONS -->
+  <section id="page3" class="hidden">
+    <h2>Let's Get to Know You 🌸</h2>
+    <p>Answer only what you feel comfortable sharing.</p>
+
+    <label for="nickname">What should I call you? 💕</label>
+    <input id="nickname" placeholder="Your nickname (optional)">
+
+    <label for="age">Your age range</label>
+    <select id="age">
+      <option value="">Prefer not to say</option>
+      <option>Under 18</option>
+      <option>18–21</option>
+      <option>22–25</option>
+      <option>26 or above</option>
+    </select>
+
+    <label for="study">What are you doing these days?</label>
+    <select id="study">
+      <option value="">Choose one (optional)</option>
+      <option>Studying 📚</option>
+      <option>Working 💼</option>
+      <option>Both studying and working ✨</option>
+      <option>Something else 🌷</option>
+    </select>
+
+    <label for="subject">Favorite subject</label>
+    <input id="subject" placeholder="Your favorite subject">
+
+    <label for="hobby">Your favorite hobby</label>
+    <input id="hobby" placeholder="Reading, music, sports...">
+
+    <label for="personality">Describe yourself in a few words</label>
+    <input id="personality" placeholder="Funny, shy, kind...">
+
+    <button onclick="go(4)">Next Questions 💌</button>
+    <button class="secondary" onclick="go(2)">Back</button>
+  </section>
+
+  <!-- PAGE 4: FUNNY QUESTIONS -->
+  <section id="page4" class="hidden">
+    <h2>Fun Questions 😂</h2>
+    <p>Let's make this a little more interesting!</p>
+
+    <label for="teacher">Favorite teacher's name (optional)</label>
+    <input id="teacher" placeholder="Teacher's name">
+
+    <label for="classmate">Favorite classmate (optional)</label>
+    <input id="classmate" placeholder="Name or nickname">
+
+    <label for="laugh">What makes you laugh the most?</label>
+    <select id="laugh">
+      <option value="">Choose one</option>
+      <option>Funny videos 😂</option>
+      <option>Friends' jokes 🤣</option>
+      <option>Silly moments 😜</option>
+      <option>Almost everything 😆</option>
+    </select>
+
+    <label for="weekend">Your ideal weekend?</label>
+    <select id="weekend">
+      <option value="">Choose one</option>
+      <option>Sleeping all day 😴</option>
+      <option>Going out 🌷</option>
+      <option>Watching movies 🎬</option>
+      <option>Spending time with friends 💕</option>
+      <option>Studying or working 📚</option>
+    </select>
+
+    <button onclick="go(5)">One Last Question 💖</button>
+    <button class="secondary" onclick="go(3)">Back</button>
+  </section>
+
+  <!-- PAGE 5: FRIENDSHIP QUESTION -->
+  <section id="page5" class="hidden">
+    <div class="emoji" id="friendEmoji">🥺</div>
+    <h2 id="friendTitle">Can We Be Friends? 💖</h2>
+    <p id="friendMessage">
+      No pressure at all. Choose whatever you genuinely feel. 🌷
+    </p>
+
+    <div id="friendChoices">
+      <button class="choice" onclick="friendAnswer('yes')">Yes 💖</button>
+      <button class="choice secondary" onclick="friendAnswer('maybe')">Maybe 😊</button>
+      <button class="choice" onclick="friendAnswer('no')">No, thank you 💔</button>
+    </div>
+
+    <div id="friendReaction" class="hidden">
+      <h2 id="reactionTitle"></h2>
+      <p id="reactionMessage"></p>
+      <button id="reactionButton" onclick="reactionNext()">Continue 💌</button>
+    </div>
+
+    <button class="secondary" onclick="go(4)">Back</button>
+  </section>
+
+  <!-- PAGE 6: OPTIONAL REVIEW -->
+  <section id="page6" class="hidden">
+    <div class="emoji">🌟</div>
+    <h2>How Was This Little Website? 💕</h2>
+    <p>You can leave a rating if you like.</p>
+
+    <label for="rating">Your rating</label>
+    <select id="rating">
+      <option value="">Skip this question</option>
+      <option>⭐ 1 star</option>
+      <option>⭐⭐ 2 stars</option>
+      <option>⭐⭐⭐ 3 stars</option>
+      <option>⭐⭐⭐⭐ 4 stars</option>
+      <option>⭐⭐⭐⭐⭐ 5 stars</option>
+    </select>
+
+    <label for="review">Your thoughts (optional)</label>
+    <textarea id="review" rows="3" placeholder="Write a little message..."></textarea>
+
+    <label for="phone">Phone number (optional)</label>
+    <input id="phone" type="tel" placeholder="Only if you want to share">
+
+    <p class="small">
+      Your answers stay in this page. This demo does not send or save
+      them to Shakir or any server.
+    </p>
+
+    <button onclick="go(7)">Finish 💖</button>
+    <button class="secondary" onclick="go(5)">Back</button>
+    <button class="secondary" onclick="skipReview()">Skip</button>
+  </section>
+
+  <!-- PAGE 7: THANK YOU -->
+  <section id="page7" class="hidden">
+    <div class="emoji">🥰</div>
+    <h1>Thank You! 💖</h1>
+    <p id="thankYouMessage">
+      Thank you for visiting my little website. I hope it made you smile! 🌸
+    </p>
+    <p>May your day be filled with happiness and beautiful moments. 🌷</p>
+    <button onclick="restart()">Start Again 🔄</button>
+  </section>
+
+</div>
+
+<script>
+let currentPage = 1;
+let noReactionStep = 0;
+let chosenFriendAnswer = "";
+
+function go(page) {
+  document.querySelectorAll("section").forEach(section => {
+    section.classList.add("hidden");
+  });
+
+  const target = page === "photo" ? "pagePhoto" : "page" + page;
+  document.getElementById(target).classList.remove("hidden");
+
+  const progress = document.getElementById("progress");
+  progress.textContent = page === 7
+    ? "A little happiness for you 💖"
+    : "Surprise page " + page + " of 7 💌";
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function friendAnswer(answer) {
+  chosenFriendAnswer = answer;
+  noReactionStep = 0;
+
+  document.getElementById("friendChoices").classList.add("hidden");
+  document.getElementById("friendReaction").classList.remove("hidden");
+
+  const emoji = document.getElementById("friendEmoji");
+  const title = document.getElementById("reactionTitle");
+  const message = document.getElementById("reactionMessage");
+  const button = document.getElementById("reactionButton");
+
+  if (answer === "yes") {
+    emoji.textContent = "🥰";
+    title.textContent = "Yay! Thank You! 💖";
+    message.textContent = "You made me smile! Thanks for being so kind. 🌸";
+    button.textContent = "Continue 💌";
+  } else if (answer === "maybe") {
+    emoji.textContent = "😊";
+    title.textContent = "That's Absolutely Okay! 🌷";
+    message.textContent = "Take your time. No pressure at all. 💕";
+    button.textContent = "Continue 💌";
+  } else {
+    emoji.textContent = "😭";
+    title.textContent = "Awww, My Little Heart! 😭💔";
+    message.textContent =
+      "You chose not today! That's okay—your choice is respected. " +
+      "Click below if you'd like to see me cheer up. 🥺";
+    button.textContent = "Make Me Happy 😂";
+  }
+}
+
+function reactionNext() {
+  if (chosenFriendAnswer === "no" && noReactionStep === 0) {
+    noReactionStep = 1;
+    document.getElementById("friendEmoji").textContent = "😂";
+    document.getElementById("reactionTitle").textContent = "Okay, I'm Smiling Now! 😂💖";
+    document.getElementById("reactionMessage").textContent =
+      "Just kidding! Thank you for being honest. You can continue whenever you're ready. 🌷";
+    document.getElementById("reactionButton").textContent = "Continue 💌";
+    return;
+  }
+
+  // All answers continue only when the visitor clicks Continue.
+  go(6);
+}
+
+function skipReview() {
+  go(7);
+}
+
+function restart() {
+  document.querySelectorAll("input, textarea").forEach(el => el.value = "");
+  document.querySelectorAll("select").forEach(el => el.selectedIndex = 0);
+
+  document.getElementById("friendChoices").classList.remove("hidden");
+  document.getElementById("friendReaction").classList.add("hidden");
+  document.getElementById("friendEmoji").textContent = "🥺";
+  document.getElementById("friendTitle").textContent = "Can We Be Friends? 💖";
+  document.getElementById("friendMessage").textContent =
+    "No pressure at all. Choose whatever you genuinely feel. 🌷";
+
+  chosenFriendAnswer = "";
+  noReactionStep = 0;
+  go(1);
+}
+
+// Floating hearts decoration
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.textContent = ["💖", "💕", "🌸", "💗", "✨"][
+    Math.floor(Math.random() * 5)
+  ];
+  heart.style.left = Math.random() * 100 + "vw";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
+}, 1200);
+
+/* Magical sparkles when buttons are clicked */
+document.addEventListener("click", function(event) {
+  if (event.target.tagName !== "BUTTON") return;
+
+  const symbols = ["✨", "💖", "💕", "🌸", "⭐"];
+
+  for (let i = 0; i < 8; i++) {
+    const sparkle = document.createElement("span");
+    sparkle.className = "sparkle";
+    sparkle.textContent =
+      symbols[Math.floor(Math.random() * symbols.length)];
+
+    sparkle.style.left = event.clientX + "px";
+    sparkle.style.top = event.clientY + "px";
+    sparkle.style.setProperty("--move-x", (Math.random() - 0.5) * 180 + "px");
+    sparkle.style.setProperty("--move-y", (Math.random() - 0.5) * 180 + "px");
+
+    document.body.appendChild(sparkle);
+    setTimeout(() => sparkle.remove(), 900);
+  }
+});
+
+const musicButton = document.getElementById("musicButton");
+
+let musicContext;
+let musicTimer;
+let musicPlaying = false;
+let musicNote = 0;
+
+function playMusicNote() {
+  if (!musicContext || !musicPlaying) return;
+
+  const notes = [261.63, 329.63, 392.00, 329.63, 293.66, 349.23, 440.00, 349.23];
+  const oscillator = musicContext.createOscillator();
+  const gain = musicContext.createGain();
+
+  oscillator.type = "sine";
+  oscillator.frequency.value = notes[musicNote % notes.length];
+
+  gain.gain.setValueAtTime(0.0001, musicContext.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.045, musicContext.currentTime + 0.08);
+  gain.gain.exponentialRampToValueAtTime(0.0001, musicContext.currentTime + 0.65);
+
+  oscillator.connect(gain);
+  gain.connect(musicContext.destination);
+
+  oscillator.start();
+  oscillator.stop(musicContext.currentTime + 0.7);
+
+  musicNote++;
+}
+
+musicButton.addEventListener("click", async function () {
+  if (!musicContext) {
+    musicContext = new (window.AudioContext || window.webkitAudioContext)();
+  }
+
+  if (musicPlaying) {
+    musicPlaying = false;
+    clearInterval(musicTimer);
+    musicButton.textContent = "🎵 Play Music";
+    return;
+  }
+
+  await musicContext.resume();
+  musicPlaying = true;
+  playMusicNote();
+  musicTimer = setInterval(playMusicNote, 700);
+  musicButton.textContent = "⏸️ Pause Music";
+});
+
+</script>
+
+</body>
+</html>
